@@ -30,6 +30,35 @@ This project uses [Make](https://www.gnu.org/software/make/). The Makefile has f
 1. Clone the project repository: `git clone https://github.com/udacity/CppND-System-Monitor-Project-Updated.git`
 
 2. Build the project: `make build`
+    - another option is `make debug`
+    - use the following in your `.vscode/launch.json`
+
+            {
+                // you might need to add the dict to your config array
+                // to keep other configs you don't want to overwrite.
+                "version": "0.2.0", //this might be different
+                "configurations": [
+                    {
+                        "name": "(gdb) Launch",
+                        "type": "cppdbg",
+                        "request": "launch",
+                        "program": "${workspaceFolder}/build/monitor",
+                        "args": [],
+                        "stopAtEntry": false,
+                        "cwd": "${fileDirname}",
+                        "environment": [],
+                        "externalConsole": false,
+                        "MIMode": "gdb",
+                        "setupCommands": [
+                            {
+                                "description": "Enable pretty-printing for gdb",
+                                "text": "-enable-pretty-printing",
+                                "ignoreFailures": true
+                            }
+                        ]
+                    }
+                ]
+            }  
 
 3. Run the resulting executable: `./build/monitor`
 ![Starting System Monitor](images/starting_monitor.png)
