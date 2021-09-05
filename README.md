@@ -30,7 +30,8 @@ This project uses [Make](https://www.gnu.org/software/make/). The Makefile has f
 1. Clone the project repository: `git clone https://github.com/udacity/CppND-System-Monitor-Project-Updated.git`
 
 2. Build the project: `make build`
-    - another option is `make debug`
+    - If you want to use VSCode to debug, use the option `make debug` which will run 
+            `cmake -DCMAKE_BUILD_TYPE=debug` to add the debugging flags. See the Makefile for the details.
     - use the following in your `.vscode/launch.json`
 
             {
@@ -45,7 +46,7 @@ This project uses [Make](https://www.gnu.org/software/make/). The Makefile has f
                         "program": "${workspaceFolder}/build/monitor",
                         "args": [],
                         "stopAtEntry": false,
-                        "cwd": "${fileDirname}",
+                        "cwd": "${workspaceFolder}",
                         "environment": [],
                         "externalConsole": false,
                         "MIMode": "gdb",
