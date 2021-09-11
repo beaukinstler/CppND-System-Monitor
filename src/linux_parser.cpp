@@ -1,10 +1,11 @@
+#include "linux_parser.h"
+
 #include <dirent.h>
 #include <unistd.h>
+
 #include <sstream>
 #include <string>
 #include <vector>
-
-#include "linux_parser.h"
 
 using std::stof;
 using std::string;
@@ -78,7 +79,7 @@ long LinuxParser::Jiffies() { return 0; }
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
+long LinuxParser::ActiveJiffies(int pid [[maybe_unused]]) { return 0; }
 
 // TODO: Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() { return 0; }
@@ -86,7 +87,7 @@ long LinuxParser::ActiveJiffies() { return 0; }
 // TODO: Read and return the number of idle jiffies for the system
 long LinuxParser::IdleJiffies() { return 0; }
 
-// TODO: Read and return CPU utilization
+// Done: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() {
   string cpu;
   string line;
@@ -96,23 +97,22 @@ vector<string> LinuxParser::CpuUtilization() {
     std::getline(stream, line);
     std::istringstream linestream(line);
 
-    while(linestream){
+    while (linestream) {
       string token = "";
       linestream >> token;
       results.push_back(token);
     }
   }
 
-
   stream.close();
 
   // erase the first element, which should be "CPU"
-  if((results.front()) == "cpu"){
+  if ((results.front()) == "cpu") {
     results.erase(results.begin());
-    return results;    
+    return results;
   }
 
-  // if we don't have a line that starts with CPU, we can't be sure we 
+  // if we don't have a line that starts with CPU, we can't be sure we
   // have the right data, so just send back empty vector.
   results.clear();
   return results;
