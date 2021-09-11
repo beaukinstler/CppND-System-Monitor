@@ -119,7 +119,38 @@ vector<string> LinuxParser::CpuUtilization() {
 }
 
 // TODO: Read and return the total number of processes
-int LinuxParser::TotalProcesses() { return 0; }
+int LinuxParser::TotalProcesses() {
+  string line;
+  string results = "";
+  std::ifstream stream(kProcDirectory + kStatFilename);
+  if (stream.is_open()) {
+    bool found = false;
+    while (std::getline(stream, line) && found == false) {
+      std::istringstream linestream(line);
+      vector<string> linedata;
+      while (linestream) {
+        string token = "";
+        linestream >> token;
+        linedata.push_back(token);
+      }
+      if(linedata[0] == "procs_running"){
+        found = true;
+        results = linedata[1];
+      }
+    }
+  }
+
+  stream.close();
+
+  // if empty string still, return 0
+  if (results == "") {
+    return 0;
+  }
+  else{
+    return std::stoi(results);
+  }
+
+}
 
 // TODO: Read and return the number of running processes
 int LinuxParser::RunningProcesses() { return 0; }
