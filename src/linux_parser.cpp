@@ -68,8 +68,39 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
-// TODO: Read and return the system memory utilization
-float LinuxParser::MemoryUtilization() { return 0.0; }
+// Done: Read and return the system memory utilization
+float LinuxParser::MemoryUtilization() {
+  std::ifstream stream(kProcDirectory + kMeminfoFilename);
+  string line;
+  string _temp;
+  string MemTotal;
+  string MemFree;
+  string MemAvail;
+  if (stream.is_open()) {
+    // get total
+    getline(stream, line);
+    std::istringstream linestream(line);
+    linestream >> _temp >> MemTotal;
+    linestream.clear();
+
+    // get free
+    getline(stream, line);
+    // linestream(line);
+    linestream = std::istringstream(line);
+    linestream >> _temp >> MemFree;
+
+    // get avail
+    getline(stream, line);
+    linestream = std::istringstream(line);
+    linestream >> _temp >> MemAvail;
+  }
+
+  stream.close();
+
+  float result = 0.0;
+  result = stof(MemAvail) / stof(MemTotal) * 100;
+  return result;
+}
 
 // TODO: Read and return the system uptime
 long LinuxParser::UpTime() { return 0; }
@@ -133,7 +164,7 @@ int LinuxParser::TotalProcesses() {
         linestream >> token;
         linedata.push_back(token);
       }
-      if(linedata[0] == "procs_running"){
+      if (linedata[0] == "procs_running") {
         found = true;
         results = linedata[1];
       }
@@ -145,11 +176,9 @@ int LinuxParser::TotalProcesses() {
   // if empty string still, return 0
   if (results == "") {
     return 0;
-  }
-  else{
+  } else {
     return std::stoi(results);
   }
-
 }
 
 // TODO: Read and return the number of running processes

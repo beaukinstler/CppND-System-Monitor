@@ -12,7 +12,7 @@
 int main() {
   // testing
 
-  // // testing Format::ElapedTime
+  // // testing Format::ElapsedTime
   long timeinsec = 10040;
   std::string result = Format::ElapsedTime(timeinsec);
   assert(result == "02:47:20");
@@ -20,6 +20,10 @@ int main() {
   // testing linux parser 
   int total_procs = LinuxParser::TotalProcesses();
   assert(total_procs > 0);
+
+  // testing 
+  float memUsed = LinuxParser::MemoryUtilization();
+  assert(memUsed <= 100 && memUsed > 0.00);
 
   // end of testing
 
