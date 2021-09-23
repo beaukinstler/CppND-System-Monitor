@@ -4,6 +4,10 @@
 #include <fstream>
 #include <regex>
 #include <string>
+#include <vector>
+
+using std::string;
+using std::vector;
 
 namespace LinuxParser {
 // Paths
@@ -26,6 +30,7 @@ int TotalProcesses();
 int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
+vector<std::string> ParseProcStat(std::string key);
 
 // CPU
 enum CPUStates {
