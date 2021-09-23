@@ -181,27 +181,8 @@ vector<string> LinuxParser::ParseProcStat(string key) {
 }
 
 int LinuxParser::TotalProcesses() {
-  string line;
-  string results = "";
-  std::ifstream stream(kProcDirectory + kStatFilename);
-  if (stream.is_open()) {
-    bool found = false;
-    while (std::getline(stream, line) && found == false) {
-      std::istringstream linestream(line);
-      vector<string> linedata;
-      while (linestream) {
-        string token = "";
-        linestream >> token;
-        linedata.push_back(token);
-      }
-      if (linedata[0] == "processes") {
-        found = true;
-        results = linedata[1];
-      }
-    }
-  }
-
-  stream.close();
+  // get the "proceses" value from /proc/stat
+  string results = (LinuxParser::ParseProcStat("processes"))[1];
 
   // if empty string still, return 0
   if (results == "") {
