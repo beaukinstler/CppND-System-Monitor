@@ -25,6 +25,10 @@ int main() {
   float memUsed = LinuxParser::MemoryUtilization();
   assert(memUsed <= 100 && memUsed > 0.00);
 
+    // testing 
+  std::string kernel = LinuxParser::Kernel();
+  assert(kernel.length() > 0);
+
   // end of testing
 
   System system;
