@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "linux_parser.h"
 #include "process.h"
 #include "processor.h"
 
@@ -21,8 +22,13 @@ Processor& System::Cpu() { return cpu_; }
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() { return processes_; }
 
-// TODO: Return the system's kernel identifier (string)
-std::string System::Kernel() { return string(); }
+// Done: Return the system's kernel identifier (string)
+std::string System::Kernel() { 
+  if(this->kernel_ == ""){
+    this->kernel_ = LinuxParser::Kernel();
+  }
+  return this->kernel_;
+}
 
 // TODO: Return the system's memory utilization
 float System::MemoryUtilization() { return 0.0; }
