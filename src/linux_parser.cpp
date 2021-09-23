@@ -194,7 +194,7 @@ int LinuxParser::TotalProcesses() {
         linestream >> token;
         linedata.push_back(token);
       }
-      if (linedata[0] == "procs_running") {
+      if (linedata[0] == "processes") {
         found = true;
         results = linedata[1];
       }
