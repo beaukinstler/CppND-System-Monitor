@@ -211,8 +211,17 @@ int LinuxParser::TotalProcesses() {
   }
 }
 
-// TODO: Read and return the number of running processes
-int LinuxParser::RunningProcesses() { return 0; }
+// Done: Read and return the number of running processes
+int LinuxParser::RunningProcesses() {
+  // get the "procs_running" value from /proc/stat
+  string results = (LinuxParser::ParseProcStat("procs_running"))[1];
+  // if empty string still, return 0
+  if (results == "") {
+    return 0;
+  } else {
+    return std::stoi(results);
+  }
+}
 
 // TODO: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
