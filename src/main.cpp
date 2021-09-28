@@ -20,10 +20,17 @@ int main() {
   vector<int> pidList = LinuxParser::Pids();
   assert(!pidList.empty());
 
-  // testing LinuxParser::Command(int pid)
+
   for(auto pid: pidList){
+      // testing LinuxParser::Command(int pid)
     cout << (LinuxParser::Command(pid)) << "\n";
+
+      // testing  LinuxParser::Ram(int pid)
+    string temp = LinuxParser::Ram(pid);
+    assert( temp.length() > 0 );
   }
+
+
 
   // // testing Format::ElapsedTime
   long timeinsec = 10040;
