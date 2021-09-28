@@ -114,9 +114,9 @@ long LinuxParser::UpTime() {
 
     linestream >> line;
   }
-  long result =  std::stol(line); // string to long
+  long result = std::stol(line);  // string to long
   return result;
- }
+}
 
 // TODO: Read and return the number of jiffies for the system
 long LinuxParser::Jiffies() { return 0; }
