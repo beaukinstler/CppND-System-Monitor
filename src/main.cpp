@@ -12,6 +12,11 @@
 int main() {
   // testing
 
+  // testing code given for PIDs
+
+  vector<int> pidList = LinuxParser::Pids();
+  assert(!pidList.empty());
+
   // // testing Format::ElapsedTime
   long timeinsec = 10040;
   std::string result = Format::ElapsedTime(timeinsec);
