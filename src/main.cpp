@@ -9,6 +9,9 @@
 
 #include "linux_parser.h"
 
+#include <iostream>
+using std::cout;
+
 int main() {
   // testing
 
@@ -16,6 +19,11 @@ int main() {
 
   vector<int> pidList = LinuxParser::Pids();
   assert(!pidList.empty());
+
+  // testing LinuxParser::Command(int pid)
+  for(auto pid: pidList){
+    cout << (LinuxParser::Command(pid)) << "\n";
+  }
 
   // // testing Format::ElapsedTime
   long timeinsec = 10040;
