@@ -31,6 +31,7 @@ int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
 vector<std::string> ParseProcStat(std::string key);
+string GetValuePidProcStatus(int pid, string key, int index);
 
 // CPU
 enum CPUStates {

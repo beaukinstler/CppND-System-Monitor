@@ -1,15 +1,11 @@
+#include <cassert>
+#include <iostream>
+#include <string>
+
+#include "format.h"
+#include "linux_parser.h"
 #include "ncurses_display.h"
 #include "system.h"
-
-
-
-#include <string>
-#include <cassert>
-#include "format.h"
-
-#include "linux_parser.h"
-
-#include <iostream>
 using std::cout;
 
 int main() {
@@ -20,32 +16,33 @@ int main() {
   vector<int> pidList = LinuxParser::Pids();
   assert(!pidList.empty());
 
-
-  for(auto pid: pidList){
-      // testing LinuxParser::Command(int pid)
+  for (auto pid : pidList) {
+    // testing LinuxParser::Command(int pid)
     cout << (LinuxParser::Command(pid)) << "\n";
 
-      // testing  LinuxParser::Ram(int pid)
+    // testing  LinuxParser::Ram(int pid)
     string temp = LinuxParser::Ram(pid);
-    assert( temp.length() > 0 );
+    assert(temp.length() > 0);
+
+    // test LinuxParser::GetValuePidProcStatus(pid, "Uid", 1)
+    temp = LinuxParser::GetValuePidProcStatus(pid, "Uid", 1);
+    assert(temp.length() > 0);
   }
-
-
 
   // // testing Format::ElapsedTime
   long timeinsec = 10040;
   std::string result = Format::ElapsedTime(timeinsec);
   assert(result == "02:47:20");
 
-  // testing linux parser 
+  // testing linux parser
   int total_procs = LinuxParser::TotalProcesses();
   assert(total_procs > 0);
 
-  // testing 
+  // testing
   float memUsed = LinuxParser::MemoryUtilization();
   assert(memUsed <= 100 && memUsed > 0.00);
 
-    // testing 
+  // testing
   std::string kernel = LinuxParser::Kernel();
   assert(kernel.length() > 0);
 
