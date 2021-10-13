@@ -6,8 +6,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <unistd.h>
+#include "format.h"
 
 using std::stof;
+using std::stol;
 using std::string;
 using std::to_string;
 using std::vector;
@@ -330,6 +333,36 @@ string LinuxParser::User(int pid) {
   return "";
 }
 
-// TODO: Read and return the uptime of a process
-// REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::UpTime(int pid [[maybe_unused]]) { return 0; }
+// Done: Read and return the uptime of a process
+// according to proc(5) — Linux manual page, the value we need is going to be the 22nd value
+long LinuxParser::UpTime(int pid)  {
+  string line;
+  std::ifstream stream(kProcDirectory + "/" + to_string(pid) + "/" +
+                       kStatFilename);
+  // read stats file for the PID in /proc/PID/status
+  if (stream.is_open()) {
+    // get the first and presumably only line
+    std::getline(stream, line);    
+
+    // now that the 2nd line is loaded into line
+    // get all the values into the results array
+    std::istringstream values(line);
+    vector<string> results{};
+    std::string token;
+    while (values >> token) {
+      results.push_back(token);
+    }
+
+    // return the 5th value of line 2 as the clock ticks
+    long clockTicks = stol(results[21]);
+
+    // convert to seconds
+    long time = clockTicks / sysconf(_SC_CLK_TCK);
+
+    // return though the time format function
+    return stol(Format::ElapsedTime(time));
+  }
+
+  // return 0 if not found
+  return 0;
+}
