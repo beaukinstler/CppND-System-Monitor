@@ -6,7 +6,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <unistd.h>
+
 #include "format.h"
 
 using std::stof;
@@ -357,17 +357,18 @@ vector<string> LinuxParser::GetPidStat(int pid) {
 }
 
 // Done: Read and return the uptime of a process
-// according to proc(5) — Linux manual page, the value we need is going to be the 22nd value
-long LinuxParser::UpTime(int pid)  {
+// according to proc(5) — Linux manual page, the value we need is going to be
+// the 22nd value
+long LinuxParser::UpTime(int pid) {
   string line;
   std::ifstream stream(kProcDirectory + "/" + to_string(pid) + "/" +
                        kStatFilename);
-  // read stats file for the PID in /proc/PID/status
+  // read stat file for the PID in /proc/PID/status
   if (stream.is_open()) {
     // get the first and presumably only line
-    std::getline(stream, line);    
+    std::getline(stream, line);
 
-    // now that the 2nd line is loaded into line
+    // now that the line is loaded into line
     // get all the values into the results array
     std::istringstream values(line);
     vector<string> results{};
@@ -376,7 +377,7 @@ long LinuxParser::UpTime(int pid)  {
       results.push_back(token);
     }
 
-    // return the 5th value of line 2 as the clock ticks
+    // return the 22nd value as the clock ticks
     long clockTicks = stol(results[21]);
 
     // convert to seconds
