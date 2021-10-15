@@ -333,6 +333,29 @@ string LinuxParser::User(int pid) {
   return "";
 }
 
+// parse the /proc/<pid>/stat file, and return all tokens
+vector<string> LinuxParser::GetPidStat(int pid) {
+  string line;
+  vector<string> results{};
+  std::ifstream stream(kProcDirectory + "/" + to_string(pid) + "/" +
+                       kStatFilename);
+  // read stat file for the PID in /proc/PID/status
+  if (stream.is_open()) {
+    // get the first and presumably only line
+    std::getline(stream, line);
+
+    // now that the line is loaded into line
+    // get all the values into the results array
+    std::istringstream values(line);
+
+    std::string token;
+    while (values >> token) {
+      results.push_back(token);
+    }
+  }
+  return results;
+}
+
 // Done: Read and return the uptime of a process
 // according to proc(5) — Linux manual page, the value we need is going to be the 22nd value
 long LinuxParser::UpTime(int pid)  {

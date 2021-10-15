@@ -16,6 +16,10 @@ int main() {
   vector<int> pidList = LinuxParser::Pids();
   assert(!pidList.empty());
 
+  // testing linux parser GetPidStat
+  vector<string> pidstats = LinuxParser::GetPidStat(pidList.front());
+  assert(pidstats.size() > 0);
+
   for (auto pid : pidList) {
     // testing LinuxParser::Command(int pid)
     cout << (LinuxParser::Command(pid)) << "\n";
