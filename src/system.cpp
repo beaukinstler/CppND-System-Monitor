@@ -10,6 +10,9 @@
 #include "linux_parser.h"
 #include "process.h"
 #include "processor.h"
+#include <algorithm>
+
+using std::sort;
 
 using std::set;
 using std::size_t;
@@ -27,7 +30,9 @@ System::System(){
 Processor& System::Cpu() { return cpu_; }
 
 // TODO: Return a container composed of the system's processes
-vector<Process>& System::Processes() { return processes_; }
+vector<Process>& System::Processes() { 
+  sort(processes_.begin(), processes_.end());
+  return processes_; }
 
 // Done: Return the system's kernel identifier (string)
 std::string System::Kernel() {

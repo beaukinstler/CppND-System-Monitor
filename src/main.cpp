@@ -30,7 +30,20 @@ int main() {
 
     // test LinuxParser::GetValuePidProcStatus(pid, "Uid", 1)
     temp = LinuxParser::GetValuePidProcStatus(pid, "Uid", 1);
-    assert(temp.length() > 0);
+    // assert(temp.length() > 0);
+
+    // create a process
+    Process p(pid);
+    // test the GetStat function
+    if((p.GetStat()).size() >= 0 ){
+      assert((p.GetStat()).size() >= 0);     
+    }
+    else{
+      cout << p.Command() << "\n";
+    }
+
+
+    // assert(p.CpuUtilization() >= 0 );
   }
 
   // // testing Format::ElapsedTime
