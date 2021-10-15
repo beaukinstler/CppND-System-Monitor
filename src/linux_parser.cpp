@@ -382,8 +382,9 @@ long LinuxParser::UpTime(int pid)  {
     // convert to seconds
     long time = clockTicks / sysconf(_SC_CLK_TCK);
 
-    // return though the time format function
-    return stol(Format::ElapsedTime(time));
+    // // return though the time format function
+    // return stol(Format::ElapsedTime(time));
+    return time;
   }
 
   // return 0 if not found
