@@ -105,7 +105,7 @@ float LinuxParser::MemoryUtilization() {
   return result;
 }
 
-// TODO: Read and return the system uptime
+// Done: Read and return the system uptime
 long LinuxParser::UpTime() {
   // get first number from the /proc/uptime file
   std::ifstream stream(kProcDirectory + kUptimeFilename);
@@ -121,17 +121,21 @@ long LinuxParser::UpTime() {
   return result;
 }
 
-// TODO: Read and return the number of jiffies for the system
+// ?: Read and return the number of jiffies for the system
+// i don't understand where or how these are to be used.
 long LinuxParser::Jiffies() { return 0; }
 
-// TODO: Read and return the number of active jiffies for a PID
+// ?: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
+// i don't understand where or how these are to be used.
 long LinuxParser::ActiveJiffies(int pid [[maybe_unused]]) { return 0; }
 
-// TODO: Read and return the number of active jiffies for the system
+// ?: Read and return the number of active jiffies for the system
+// i don't understand where or how these are to be used.
 long LinuxParser::ActiveJiffies() { return 0; }
 
-// TODO: Read and return the number of idle jiffies for the system
+// ?: Read and return the number of idle jiffies for the system
+// i don't understand where or how these are to be used.
 long LinuxParser::IdleJiffies() { return 0; }
 
 // Done: Read and return CPU utilization

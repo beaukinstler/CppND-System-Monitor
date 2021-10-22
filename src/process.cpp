@@ -32,10 +32,10 @@ vector<string> Process::GetStat() const {
   return LinuxParser::GetPidStat(Process::pid_);
 }
 
-// TODO: Return this process's ID
+// Done: Return this process's ID
 int Process::Pid() { return Process::pid_; }
 
-// TODO: Return this process's CPU utilization
+// Done: Return this process's CPU utilization
 // using the logic here
 // https://stackoverflow.com/questions/16726779/how-do-i-get-the-total-cpu-usage-of-an-application-from-proc-pid-stat/16736599#16736599
 

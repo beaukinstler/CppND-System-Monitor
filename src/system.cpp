@@ -26,11 +26,12 @@ System::System(){
   }
 }
 
-// TODO: Return the system's CPU
+// Done: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
-// TODO: Return a container composed of the system's processes
+// Done: Return a container composed of the system's processes
 vector<Process>& System::Processes() { 
+  // sorting as well, by the CPU utilization descending
   sort(processes_.begin(), processes_.end());
   return processes_; }
 
