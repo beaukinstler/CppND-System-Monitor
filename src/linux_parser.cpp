@@ -391,6 +391,7 @@ long LinuxParser::UpTime(int pid) {
     // return stol(Format::ElapsedTime(time));
     return time;
   }
+  stream.close();
 
   // return 0 if not found
   return 0;
