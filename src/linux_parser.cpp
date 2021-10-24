@@ -65,7 +65,7 @@ vector<int> LinuxParser::Pids() {
       string filename(file->d_name);
       if (std::all_of(filename.begin(), filename.end(), isdigit)) {
         int pid = stoi(filename);
-        pids.push_back(pid);
+        pids.emplace_back(pid);
       }
     }
   }
@@ -137,7 +137,7 @@ vector<string> LinuxParser::CpuUtilization() {
     while (linestream) {
       string token = "";
       linestream >> token;
-      results.push_back(token);
+      results.emplace_back(token);
     }
   }
 
@@ -170,12 +170,12 @@ vector<string> LinuxParser::ParseProcStat(string key) {
       while (linestream) {
         string token = "";
         linestream >> token;
-        linedata.push_back(token);
+        linedata.emplace_back(token);
       }
       if (linedata[0] == key) {
         found = true;
         for (auto d : linedata) {
-          result_line.push_back(d);
+          result_line.emplace_back(d);
         };
       }
     }
@@ -244,7 +244,7 @@ string LinuxParser::GetValuePidProcStatus(int pid, string key, int index) {
       vector<string> results{};
       std::string token;
       while (values >> token) {
-        results.push_back(token);
+        results.emplace_back(token);
       }
       if (results[0] == key) {
         return results[index];
@@ -271,7 +271,7 @@ string LinuxParser::Ram(int pid) {
       vector<string> results{};
       std::string token;
       while (values >> token) {
-        results.push_back(token);
+        results.emplace_back(token);
       }
       // Based on a Udacity review, and the man page for proc(5), it seems like VmSize is not a good value to use,
       // for physical RAM size.
@@ -323,7 +323,7 @@ string LinuxParser::User(int pid) {
 
       // fill up the results until no more delim and end of line
       while (std::getline(values, token, delim)) {
-        results.push_back(token);
+        results.emplace_back(token);
       }
 
       if (results[2] == uid) {
@@ -351,7 +351,7 @@ vector<string> LinuxParser::GetPidStat(int pid) {
 
     std::string token;
     while (values >> token) {
-      results.push_back(token);
+      results.emplace_back(token);
     }
   }
   return results;
@@ -375,7 +375,7 @@ long LinuxParser::UpTime(int pid) {
     vector<string> results{};
     std::string token;
     while (values >> token) {
-      results.push_back(token);
+      results.emplace_back(token);
     }
 
     // return the 22nd value as the clock ticks
