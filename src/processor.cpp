@@ -23,7 +23,7 @@ float Processor::Utilization() {
     try {
       totalStats += stof(stat);
     } catch (const std::exception& e) {
-      //std::cerr << e.what() << '\n';
+      // std::cerr << e.what() << '\n';
     }
   }
   float nonIdle = totalStats - idleStats;
