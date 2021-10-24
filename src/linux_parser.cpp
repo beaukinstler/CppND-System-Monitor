@@ -121,22 +121,6 @@ long LinuxParser::UpTime() {
   return result;
 }
 
-// ?: Read and return the number of jiffies for the system
-// i don't understand where or how these are to be used.
-long LinuxParser::Jiffies() { return 0; }
-
-// ?: Read and return the number of active jiffies for a PID
-// REMOVE: [[maybe_unused]] once you define the function
-// i don't understand where or how these are to be used.
-long LinuxParser::ActiveJiffies(int pid [[maybe_unused]]) { return 0; }
-
-// ?: Read and return the number of active jiffies for the system
-// i don't understand where or how these are to be used.
-long LinuxParser::ActiveJiffies() { return 0; }
-
-// ?: Read and return the number of idle jiffies for the system
-// i don't understand where or how these are to be used.
-long LinuxParser::IdleJiffies() { return 0; }
 
 // Done: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() {
