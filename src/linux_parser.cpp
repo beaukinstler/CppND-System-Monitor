@@ -290,7 +290,7 @@ string LinuxParser::Ram(int pid) {
       }
     }
   }
-stream.close();
+  stream.close();
   // clean up name if needed
   // return 0 if not found
   return "0";
