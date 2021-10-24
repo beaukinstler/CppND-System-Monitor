@@ -47,11 +47,7 @@ float Process::CpuUtilization() const {
   int utime, stime, cutime, cstime;
   float totaltime;
 
-  // use the function already built for this
-  int elapsedTime;
-  // elapsedTime = LinuxParser::UpTime(this->pid_);
 
-  // int seconds = sysUptime - elapsedTime;
 
 
   // get file data
