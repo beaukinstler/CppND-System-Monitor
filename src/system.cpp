@@ -2,6 +2,7 @@
 
 #include <unistd.h>
 
+#include <algorithm>
 #include <cstddef>
 #include <set>
 #include <string>
@@ -10,7 +11,6 @@
 #include "linux_parser.h"
 #include "process.h"
 #include "processor.h"
-#include <algorithm>
 
 using std::sort;
 
