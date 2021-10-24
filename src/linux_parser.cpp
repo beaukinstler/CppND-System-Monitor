@@ -103,7 +103,7 @@ float LinuxParser::MemoryUtilization() {
   stream.close();
 
   float result = 0.0;
-  result = stof(MemAvail) / stof(MemTotal) * 100;
+  result = (1 - stof(MemAvail) / stof(MemTotal)) * 100;
   return result;
 }
 
