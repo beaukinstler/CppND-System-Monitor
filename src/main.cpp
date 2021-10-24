@@ -8,6 +8,11 @@
 #include "system.h"
 using std::cout;
 
+#define printVariableNameAndValue(x) cout<<"The name of variable **"<<(#x)<<"** and the value of variable is => "<<x<<"\n"
+// Code from udacity mentor for debugging
+// http://www.cplusplus.com/doc/tutorial/preprocessor/
+
+
 int main() {
   // // testing
 
