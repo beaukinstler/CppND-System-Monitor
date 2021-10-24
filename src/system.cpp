@@ -30,10 +30,18 @@ System::System() {
 Processor& System::Cpu() { return cpu_; }
 
 // Done: Return a container composed of the system's processes
-vector<Process>& System::Processes() { 
+vector<Process>& System::Processes() {
+  System::processes_.clear();
+  vector<int> pids = LinuxParser::Pids();
+  for (auto pid : pids) {
+    System::processes_.emplace_back(Process(pid));
+  }
+
   // sorting as well, by the CPU utilization descending
-  sort(processes_.begin(), processes_.end());
-  return processes_; }
+
+  sort(System::processes_.begin(), System::processes_.end());
+  return System::processes_;
+}
 
 // Done: Return the system's kernel identifier (string)
 std::string System::Kernel() {
