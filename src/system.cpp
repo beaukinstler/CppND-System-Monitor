@@ -19,9 +19,9 @@ using std::size_t;
 using std::string;
 using std::vector;
 
-System::System(){
+System::System() {
   vector<int> pids = LinuxParser::Pids();
-  for(auto pid: pids){
+  for (auto pid : pids) {
     System::processes_.push_back(Process(pid));
   }
 }
