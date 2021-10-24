@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include <sstream>
+#include <iomanip>
 #include <string>
 #include <vector>
 
@@ -14,6 +15,7 @@ using std::stol;
 using std::string;
 using std::to_string;
 using std::vector;
+using std::setprecision;
 
 // DONE: An example of how to read data from the filesystem
 string LinuxParser::OperatingSystem() {
@@ -271,8 +273,19 @@ string LinuxParser::Ram(int pid) {
       while (values >> token) {
         results.push_back(token);
       }
-      if (results[0] == ("VmSize:")) {
-        return results[1];
+      // Based on a Udacity review, and the man page for proc(5), it seems like VmSize is not a good value to use,
+      // for physical RAM size.
+      // It's what was given by the assignment, but better to use VmRSS values instead
+      // So, I'm adding that change.
+      // if (results[0] == ("VmSize:")) {
+      if (results[0] == ("VmRSS:")) {
+
+        // rounding double based on stack overflow answer https://stackoverflow.com/a/29200671
+        std::stringstream stream;
+        double result =  std::stoi(results[1])/1024.0;
+        stream << std::fixed << setprecision(2) << result;
+        return stream.str();
+
       }
     }
   }
