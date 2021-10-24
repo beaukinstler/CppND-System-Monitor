@@ -38,7 +38,9 @@ vector<Process>& System::Processes() {
   }
 
   // sorting as well, by the CPU utilization descending
-
+  if( System::processes_.size() < 2){
+    return System::processes_;
+  }
   sort(System::processes_.begin(), System::processes_.end());
   return System::processes_;
 }
