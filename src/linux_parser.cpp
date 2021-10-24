@@ -119,10 +119,10 @@ long LinuxParser::UpTime() {
 
     linestream >> line;
   }
-  long result = std::stol(line);  // string to long
+  stream.close();
+  long result = std::stol(line);
   return result;
 }
-
 
 // Done: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() {
@@ -220,11 +220,12 @@ string LinuxParser::Command(int pid) {
   if (stream.is_open()) {
     while (std::getline(stream, line)) {
       if (line.length() > 0) {
+        stream.close();
         return line;
       }
     }
   }
-
+  stream.close();
   // clean up name if needed
 
   return "";
@@ -247,11 +248,12 @@ string LinuxParser::GetValuePidProcStatus(int pid, string key, int index) {
         results.emplace_back(token);
       }
       if (results[0] == key) {
+        stream.close();
         return results[index];
       }
     }
   }
-
+  stream.close();
   // return "" if not found
   // users of this function will need to handle this for
   // their use cases.
@@ -273,23 +275,22 @@ string LinuxParser::Ram(int pid) {
       while (values >> token) {
         results.emplace_back(token);
       }
-      // Based on a Udacity review, and the man page for proc(5), it seems like VmSize is not a good value to use,
-      // for physical RAM size.
-      // It's what was given by the assignment, but better to use VmRSS values instead
-      // So, I'm adding that change.
-      // if (results[0] == ("VmSize:")) {
+      // Based on a Udacity review, and the man page for proc(5), it seems like
+      // VmSize is not a good value to use, for physical RAM size. It's what was
+      // given by the assignment, but better to use VmRSS values instead So, I'm
+      // adding that change. if (results[0] == ("VmSize:")) {
       if (results[0] == ("VmRSS:")) {
-
-        // rounding double based on stack overflow answer https://stackoverflow.com/a/29200671
-        std::stringstream stream;
-        double result =  std::stoi(results[1])/1024.0;
-        stream << std::fixed << setprecision(2) << result;
-        return stream.str();
-
+        // rounding double based on stack overflow answer
+        // https://stackoverflow.com/a/29200671
+        std::stringstream sstream;
+        double result = std::stoi(results[1]) / 1024.0;
+        sstream << std::fixed << setprecision(2) << result;
+        stream.close();
+        return sstream.str();
       }
     }
   }
-
+stream.close();
   // clean up name if needed
   // return 0 if not found
   return "0";
@@ -327,10 +328,12 @@ string LinuxParser::User(int pid) {
       }
 
       if (results[2] == uid) {
+        stream.close();
         return results[0];
       }
     }
   }
+  stream.close();
   return "";
 }
 
@@ -354,6 +357,7 @@ vector<string> LinuxParser::GetPidStat(int pid) {
       results.emplace_back(token);
     }
   }
+  stream.close();
   return results;
 }
 
@@ -386,6 +390,7 @@ long LinuxParser::UpTime(int pid) {
 
     // // return though the time format function
     // return stol(Format::ElapsedTime(time));
+    stream.close();
     return time;
   }
   stream.close();
