@@ -3,19 +3,19 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#include <sstream>
 #include <iomanip>
+#include <sstream>
 #include <string>
 #include <vector>
 
 #include "format.h"
 
+using std::setprecision;
 using std::stof;
 using std::stol;
 using std::string;
 using std::to_string;
 using std::vector;
-using std::setprecision;
 
 // DONE: An example of how to read data from the filesystem
 string LinuxParser::OperatingSystem() {
