@@ -213,22 +213,20 @@ int LinuxParser::RunningProcesses() {
 // Done: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
 string LinuxParser::Command(int pid) {
-  string line;
+  string line = "";
   std::ifstream stream(kProcDirectory + "/" + to_string(pid) + "/" +
                        kCmdlineFilename);
   // read cmdline file for the PID in /proc/PID/cmdline
   if (stream.is_open()) {
-    while (std::getline(stream, line)) {
-      if (line.length() > 0) {
-        stream.close();
-        return line;
-      }
-    }
+    std::getline(stream, line);
   }
   stream.close();
   // clean up name if needed
-
-  return "";
+  if (line.length() > 0) {
+    return line;
+  } else {
+    return "";
+  }
 }
 
 // helper to reduce the same code between functions
@@ -339,25 +337,28 @@ string LinuxParser::User(int pid) {
 
 // parse the /proc/<pid>/stat file, and return all tokens
 vector<string> LinuxParser::GetPidStat(int pid) {
-  string line;
+  string line = "";
   vector<string> results{};
-  std::ifstream stream(kProcDirectory + "/" + to_string(pid) + "/" +
-                       kStatFilename);
-  // read stat file for the PID in /proc/PID/status
-  if (stream.is_open()) {
-    // get the first and presumably only line
-    std::getline(stream, line);
+  try {
+    std::ifstream stream(kProcDirectory + "/" + to_string(pid) + "/" +
+                         kStatFilename);
+    // read stat file for the PID in /proc/PID/status
+    if (stream.is_open()) {
+      // get the first and presumably only line
+      std::getline(stream, line);
 
-    // now that the line is loaded into line
-    // get all the values into the results array
-    std::istringstream values(line);
+      // now that the line is loaded into line
+      // get all the values into the results array
+      std::istringstream values(line);
 
-    std::string token;
-    while (values >> token) {
-      results.emplace_back(token);
+      std::string token;
+      while (values >> token) {
+        results.emplace_back(token);
+      }
     }
+    stream.close();
+  } catch (...) {
   }
-  stream.close();
   return results;
 }
 
