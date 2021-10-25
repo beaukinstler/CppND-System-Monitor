@@ -14,22 +14,22 @@ using std::cout;
 
 
 int main() {
-  // testing
+  // // testing
 
-  // testing code given for PIDs
+  // // testing code given for PIDs
 
-  vector<int> pidList = LinuxParser::Pids();
-  assert(!pidList.empty());
+  // vector<int> pidList = LinuxParser::Pids();
+  // assert(!pidList.empty());
 
-  // testing linux parser GetPidStat
-  vector<string> pidstats = LinuxParser::GetPidStat(pidList.front());
-  assert(pidstats.size() > 0);
-  pidstats.clear();
-  pidstats = LinuxParser::GetPidStat(0);
-  assert(pidstats.size() == 0);
-  pidstats.clear();
-  pidstats = LinuxParser::GetPidStat(NULL);
-  assert(pidstats.size() == 0);
+  // // testing linux parser GetPidStat
+  // vector<string> pidstats = LinuxParser::GetPidStat(pidList.front());
+  // assert(pidstats.size() > 0);
+  // pidstats.clear();
+  // pidstats = LinuxParser::GetPidStat(0);
+  // assert(pidstats.size() == 0);
+  // pidstats.clear();
+  // pidstats = LinuxParser::GetPidStat(NULL);
+  // assert(pidstats.size() == 0);
 
 
   // for (auto pid : pidList) {
